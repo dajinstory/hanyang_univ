@@ -7,56 +7,35 @@ float bessy0(float);
 float bessj1(float);
 float bessy1(float);
 
-float bessel(float);
-float bessel_d(float);
-float func1(float);
-float func1_d(float);
-float func2(float);
-float func2_d(float);
-float func3(float);
-float func3_d(float);
-float func4(float);
-float func4_d(float);
+void bessel(float, float*, float*);
+void myfunc_1(float, float*, float*);
+void myfunc_2(float, float*, float*);
+void myfunc_3(float, float*, float*);
+void myfunc_4(float, float*, float*);
 
 
-float bessel(float x){
-	return bessj0(x);
+void bessel(float x, float* y, float* dy){
+	*y = bessj0(x);
+	*dy = -bessj1(x);
 }
 
-float bessel_d(float x){
-	return -bessj1(x);
+void myfunc_1(float x, float* y, float* dy){
+	*y = 10*pow(E,-x)*sin(2*PI*x)-2;
+	*dy = 10*(pow(E,-x)*2*PI*cos(2*PI*x)-pow(E,-x)*sin(2*PI*x));
 }
-float func1(float x){
-	return 10*pow(E,-x)*sin(2*PI*x)-2;
+void myfunc_2(float x, float* y, float* dy){
+	*y = x*x-2*x*pow(E,-x)+pow(E,-2*x);
+	*dy = 2*x+2*x*pow(E,-x)-2*pow(E,-2*x);
 }
-float func1_d(float x){
-	return 10*(pow(E,-x)*2*PI*cos(2*PI*x)-pow(E,-x)*sin(2*PI*x));
+void myfunc_3(float x, float* y, float* dy){
+	//*y = cos(x+sqrt(2.0))+x*x/2+x*sqrt(2.0));
+	*y = cos(x+sqrt(2.0))+x*(x/2+sqrt(2.0));
+	*dy = -sin(x+sqrt(2.0))+x+sqrt(2.0);
 }
-float func2(float x){
-	return x*x-2*x*pow(E,-x)+pow(E,-2*x);
+void myfunc_4(float x, float* y, float* dy){
+	*y = x*(x*x-0.5);
+	*dy = 3*x*x-0.5;
 }
-float func2_d(float x){
-	return 2*x+2*x*pow(E,-x)-2*pow(E,-2*x);
-}
-float func3(float x){
-	return cos(x+sqrt(2))+x*x/2+x*sqrt(2);
-}
-float func3_d(float x){
-	return -sin(x+sqrt(2))+x+sqrt(2);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 float bessj0(float x){
