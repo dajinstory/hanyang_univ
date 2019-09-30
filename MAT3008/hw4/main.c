@@ -31,7 +31,7 @@ typedef struct method{
 
 
 int main(){
-	funcd functions[12] = {
+	funcd functions[13] = {
 		{bessel, "Bessel function", 1.0, 10.0, 0.000001}, 
 		{myfunc_1, "myfunc_1", 0.1, 1.0, 0.000001}, 
 		{myfunc_2, "myfunc_2", 0.0, 1.0, 0.000001}, 
@@ -41,7 +41,8 @@ int main(){
 		{myfunc_5, "myfunc_5_F(R)", 320.0, 330.0, 0.0001},
 		{myfunc_5, "myfunc_5_F(R)", -320.0, -310.0, 0.000001},
 		{myfunc_5, "myfunc_5_F(R)", 320.0, 330.0, 0.000001},
-		{example_8_32, "example_8_32", 0.0, 2.0, 0.000001},
+		{example_8_32, "example_8_32", 0.0, 1.0, 0.000001},
+		{example_8_32, "example_8_32", 1.0, 2.0, 0.000001},
 		{example_8_36, "example_8_36", 1120.0, 1130.0, 0.000001},
 		{example_8_36, "example_8_36", -1300.0, -1280.0, 0.000001}
 	};	
@@ -61,7 +62,7 @@ int main(){
 	int iter=-1;
 	
 	// select function
-	for(int i=0;i<11;i++){
+	for(int i=0;i<13;i++){
 		funcdPtr func = functions[i].ptr;
 		char* func_name = functions[i].name;
 		float lx = functions[i].lx;
