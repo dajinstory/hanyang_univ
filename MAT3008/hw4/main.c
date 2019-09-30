@@ -36,15 +36,16 @@ int main(){
 	printf("%f\n", t);
 	example_8_36(5590.0,&t, &t2);
 	printf("%f\n", t);
-	funcd functions[11] = {
+	funcd functions[12] = {
 		{bessel, "Bessel function", 1.0, 10.0, 0.000001}, 
 		{myfunc_1, "myfunc_1", 0.1, 1.0, 0.000001}, 
 		{myfunc_2, "myfunc_2", 0.0, 1.0, 0.000001}, 
 		{myfunc_3, "myfunc_3", -2.0, -1.0, 0.000001},
 		{myfunc_4, "myfunc_4", -1.0, 1.0, 0.000001},
-		{myfunc_5, "myfunc_5", 320.0, 330.0, 0.000001},
 		{myfunc_5, "myfunc_5_F(R)", -320.0, -310.0, 0.0001},
+		{myfunc_5, "myfunc_5_F(R)", 320.0, 330.0, 0.0001},
 		{myfunc_5, "myfunc_5_F(R)", -320.0, -310.0, 0.000001},
+		{myfunc_5, "myfunc_5_F(R)", 320.0, 330.0, 0.000001},
 		{example_8_32, "example_8_32", 0.0, 2.0, 0.000001},
 		{example_8_36, "example_8_36", 1120.0, 1130.0, 0.000001},
 		{example_8_36, "example_8_36", -1300.0, -1280.0, 0.000001}
