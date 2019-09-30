@@ -17,6 +17,7 @@ typedef struct funcd{
 	char* name;
 	float lx;
 	float rx;
+	float xacc;
 }funcd;
 
 // method pointer. for Linear Interpolation, secant, bisection
@@ -35,17 +36,18 @@ int main(){
 	printf("%f\n", t);
 	example_8_36(5590.0,&t, &t2);
 	printf("%f\n", t);
-	funcd functions[10] = {
-		{bessel, "Bessel function", 1.0, 10.0}, 
-		{myfunc_1, "myfunc_1", 0.1, 1.0}, 
-		{myfunc_2, "myfunc_2", 0.0, 1.0}, 
-		{myfunc_3, "myfunc_3", -2.0, -1.0},
-		{myfunc_4, "myfunc_4", -1.0, 1.0},
-		{myfunc_5, "myfunc_5", 320.0, 330.0},
-		{myfunc_5, "myfunc_5", -320.0, -310.0},
-		{example_8_32, "example_8_32", 0.0, 2.0},
-		{example_8_36, "example_8_36", 1120.0, 1130.0},
-		{example_8_36, "example_8_36", -1300.0, -1280.0}
+	funcd functions[11] = {
+		{bessel, "Bessel function", 1.0, 10.0, 0.000001}, 
+		{myfunc_1, "myfunc_1", 0.1, 1.0, 0.000001}, 
+		{myfunc_2, "myfunc_2", 0.0, 1.0, 0.000001}, 
+		{myfunc_3, "myfunc_3", -2.0, -1.0, 0.000001},
+		{myfunc_4, "myfunc_4", -1.0, 1.0, 0.000001},
+		{myfunc_5, "myfunc_5", 320.0, 330.0, 0.000001},
+		{myfunc_5, "myfunc_5_F(R)", -320.0, -310.0, 0.0001},
+		{myfunc_5, "myfunc_5_F(R)", -320.0, -310.0, 0.000001},
+		{example_8_32, "example_8_32", 0.0, 2.0, 0.000001},
+		{example_8_36, "example_8_36", 1120.0, 1130.0, 0.000001},
+		{example_8_36, "example_8_36", -1300.0, -1280.0, 0.000001}
 	};	
 	method methods[6] = {
 		{rtbis, "Bisection"}, 
@@ -58,19 +60,18 @@ int main(){
 
 	int n=N, nb=NB;
 	float xb1[NB], xb2[NB];
-	float xacc=1e-6;
 	
 	float answer;
 	int iter=-1;
 	
 	// select function
-	for(int i=0;i<10;i++){
+	for(int i=0;i<11;i++){
 		funcdPtr func = functions[i].ptr;
 		char* func_name = functions[i].name;
 		float lx = functions[i].lx;
 		float rx = functions[i].rx;
-		
-		printf("\n\n###%d function: %s, range %e ~ %e\n", i+1, func_name, lx, rx);
+		float xacc = functions[i].xacc;
+		printf("\n\n\n\n###%d function: %s\n## xacc: %.12f\n## range %.12f ~ %.12f\n", i+1, func_name, xacc, lx, rx);
 		
 		// set xb
 		zbrak(func, lx, rx, n, xb1, xb2, &nb);

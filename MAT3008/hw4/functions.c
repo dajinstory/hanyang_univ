@@ -16,12 +16,11 @@ void myfunc_5(float, float*, float*);
 void example_8_32(float, float*, float*);
 void example_8_36(float, float*, float*);
 
-
+//hw3
 void bessel(float x, float* y, float* dy){
 	*y = bessj0(x);
 	*dy = -bessj1(x);
 }
-
 void myfunc_1(float x, float* y, float* dy){
 	*y = 10*pow(E,-x)*sin(2*PI*x)-2;
 	*dy = 10*(pow(E,-x)*2*PI*cos(2*PI*x)-pow(E,-x)*sin(2*PI*x));
