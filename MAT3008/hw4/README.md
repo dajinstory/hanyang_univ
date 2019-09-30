@@ -3,6 +3,7 @@
 ## hw4
 - find the value R that satisfies the condition f(R)=0.01. (for each EPSILON value of 1e-4 and 1e-6)
 - solve the problems: 8_32, 8_36
+- 이전에 놓친 hw3에 해당하는 코드도 마저 정리하였고, 결과를 확인했습니다.
 
 #### Quick Start
 ```
@@ -102,7 +103,9 @@ void example_8_36(float, float*, float*);
 ![result_F(R)_1e-6](./imgs/result_F(R)_1e-6.png)
 ![result_8_32](./imgs/result_8_32.png)
 ![result_8_32](./imgs/result_8_32.png)
-
+![result_bessel](./imgs/result_bessel.png)
+![result_func12](./imgs/result_func12.png)
+![result_func34](./imgs/result_func34.png)
 
 
 ###### main.c의 상단에서 N, NB값을 수정할 수 있고, method마다 최대한 돌릴 iteration 수는 methods.c 의 상단에서 수정할 수 있습니다.
