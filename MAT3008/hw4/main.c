@@ -31,11 +31,6 @@ typedef struct method{
 
 
 int main(){
-	float t, t2;
-	example_8_36(5585.0,&t, &t2);
-	printf("%f\n", t);
-	example_8_36(5590.0,&t, &t2);
-	printf("%f\n", t);
 	funcd functions[12] = {
 		{bessel, "Bessel function", 1.0, 10.0, 0.000001}, 
 		{myfunc_1, "myfunc_1", 0.1, 1.0, 0.000001}, 
