@@ -1,0 +1,217 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <errno.h>
+#include <sys/types.h>
+#define MAX_INPUT 100000
+#define MAX_ORDER 10000
+#define MAX_CMD 10000
+
+int getInput(char input[], FILE* fp);
+int parseInput(char input[], char* order[], int* num_of_order);
+int parseOrder(char* order, char* cmd[], int* num_of_cmd);
+int proc_ls(char* cmd[]);
+int proc_pwd(char* cmd[]);
+int proc_cat(char* cmd[]);
+int proc_grep(char* cmd[]);
+
+//helper
+void print_cmd(char* cmd[], int num_of_cmd);
+
+int main(int argv, char* argc[]){
+    
+    char input[MAX_INPUT+2];        //input string
+    char* order[MAX_ORDER];           //order after parsing input by ';'
+    char* cmd[MAX_CMD];             //command after parsing order by ' '
+    FILE *fp = NULL;                //input file pointer (batch = fp, interactive = stdin)
+    int num_of_order = 0;           //number of orders after parsing input
+    int num_of_cmd=0;               //number of cmds for one orders
+    pid_t pid;
+    pid_t pids[MAX_ORDER];
+    int status, input_signal;
+
+    if(argv>1)fp=fopen(argc[1], "r"); 
+        
+    //main loop
+    while(1){
+        num_of_order=0;
+
+        //get input
+        if((input_signal=getInput(input, fp)) == -1){
+            printf("[ERROR] error in input operation\n");
+            exit(0);
+        } 
+        if(input_signal==0) {
+            exit(0);
+            break;
+        }
+
+        //parse input to orders
+        if(parseInput(input, order, &num_of_order) == -1){
+            printf("[ERROR] error in parsing input\n");
+            exit(0);
+        }
+        
+        //execute each orders
+        //printf("\n---------------------------num_of_orders = %d\n", num_of_order);
+        for(int i=0;i<num_of_order;i++){
+            pids[i]=0;
+            num_of_cmd=0;
+
+            //parse order to exact command
+            if(parseOrder(order[i], cmd, &num_of_cmd)==-1){
+                printf("[ERROR] error in parsing order\n\n");
+                continue;
+            }
+            
+            //check command
+            //print_cmd(cmd, num_of_cmd);
+
+            //make sure it is a valid command
+            if(num_of_cmd==0){
+                printf("[WARNING] no valid order\n\n");
+                continue;
+            }
+
+
+            //exit function
+            if(num_of_order==1 && num_of_cmd==1 && strcmp(cmd[0],"quit")==0){
+                printf("prompt> quit\n");
+                return 0;
+            }
+
+            //execute child process
+            pid = fork();
+            pids[i]=pid;
+            if(pid==-1){
+                printf("[ERROR] error in fork process\n\n");
+                exit(0);
+            }
+            else if(pid==0){
+                if(strcmp(cmd[0], "ls" ) == 0 || strcmp(cmd[0], "/bin/ls")==0){
+                    proc_ls(cmd);
+                }
+                else if(strcmp(cmd[0],"pwd")==0){
+                    proc_pwd(cmd);
+                }
+                else if(strcmp(cmd[0], "cat")==0){
+                    proc_cat(cmd);
+                }
+                else if(strcmp(cmd[0], "grep")==0){
+                    proc_grep(cmd);
+                }
+                else{
+                    printf("[ERROR] no such command\n");
+                }
+                printf("\n\n");
+            }
+        //  else{
+        //      wait(&status);
+        //  }
+        for(int i=0;i<num_of_order;i++) 
+            if(pids[i]!=0){
+                waitpid(pids[i], &status, 0);
+            }
+        }
+
+    }
+    if(fp==stdin) fclose(fp);
+	return 0;
+}
+
+int getInput(char input[], FILE* fp){
+
+    for(int i=0;i<10;i++)input[i]='\0';
+    //interactie mode
+    if(fp==NULL){
+        printf("prompt> ");
+        if(fgets(input, MAX_INPUT, stdin)==NULL){
+            return -1;
+        }
+    }
+    //batch mode
+    else{
+        //fgets error
+        if(fgets(input, MAX_INPUT, fp)==NULL){
+            if(feof(fp)==0){
+                return -1;
+            }
+            else{
+                return 0;
+            }
+        }
+    }
+    int len=strlen(input);
+
+    input[len]='\0';
+    input[len-1]=';';
+    return 1;
+}
+
+/*
+int parseInput(char input[], char* order[], int* num_of_order){
+    printf("%d %s \n", input, input);
+    int idx = 0;
+    for(order[idx]=strtok(input, ";");order[idx]!=NULL;idx++, order[idx]=strtok(NULL, ";")){
+    }
+    *num_of_order=idx-1;
+    printf("%d", idx);
+    return 1;
+}
+*/
+int parseInput(char input[], char* order[], int* num_of_order){
+    int idx=0, len=strlen(input), address=0;
+    for(int i=0;i<len;i++){
+        if(input[i]==';'){
+            input[i]='\0';
+            order[idx]=input+address;
+
+            address=i+1;
+            idx++;
+        }
+    }
+    *num_of_order=idx;
+    return 1;
+}
+
+
+int parseOrder(char* order, char* cmd[], int* num_of_cmd){
+    int idx = 0;
+    for(cmd[idx]=strtok(order, " "); cmd[idx]!=NULL;cmd[++idx]=strtok(NULL, " "));
+    *num_of_cmd=idx; 
+    cmd[idx]=NULL;
+    return 1;
+}
+
+int proc_ls(char* cmd[]){
+    execvp(cmd[0], cmd);
+    return 1;
+}
+
+int proc_pwd(char* cmd[]){
+    execvp(cmd[0], cmd);
+    return 1;
+}
+
+int proc_cat(char* cmd[]){
+    execvp(cmd[0], cmd);
+    return 1;
+}
+
+int proc_grep(char* cmd[]){
+    execvp(cmd[0], cmd);
+    return 1;
+}
+
+void print_cmd(char* cmd[], int num_of_cmd){
+    printf("\n-------------num_of_cmd = %d\n\n", num_of_cmd);
+            
+    //print command
+    printf("command = <");
+    for(int j=0;j<num_of_cmd;j++){
+        printf("%s ", cmd[j]);
+    }
+    printf(">\n");
+}
+
