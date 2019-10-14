@@ -6,11 +6,11 @@ char error_text[];
 /* Numerical Recipes standard error handler */
 {
 	void _exit();
-
+	printf("exit");
 	fprintf(stderr,"Numerical Recipes run-time error...\n");
 	fprintf(stderr,"%s\n",error_text);
 	fprintf(stderr,"...now exiting to system...\n");
-	_exit(1);
+	//_exit(1);
 }
 
 float *vector(nl,nh)

@@ -1,5 +1,5 @@
 #include <math.h>
-
+#include "nrutil.c"
 #define SWAP(a,b) {float temp=(a);(a)=(b);(b)=temp;}
 
 void gaussj(a,n,b,m)
@@ -10,7 +10,6 @@ int n,m;
 	int i,icol,irow,j,k,l,ll,*ivector();
 	float big,dum,pivinv;
 	void nrerror(),free_ivector();
-
 	indxc=ivector(1,n);
 	indxr=ivector(1,n);
 	ipiv=ivector(1,n);
@@ -20,6 +19,7 @@ int n,m;
 		for (j=1;j<=n;j++)
 			if (ipiv[j] != 1)
 				for (k=1;k<=n;k++) {
+
 					if (ipiv[k] == 0) {
 						if (fabs(a[j][k]) >= big) {
 							big=fabs(a[j][k]);
@@ -33,6 +33,7 @@ int n,m;
 			for (l=1;l<=n;l++) SWAP(a[irow][l],a[icol][l])
 			for (l=1;l<=m;l++) SWAP(b[irow][l],b[icol][l])
 		}
+
 		indxr[i]=irow;
 		indxc[i]=icol;
 		if (a[icol][icol] == 0.0) nrerror("GAUSSJ: Singular Matrix-2");
