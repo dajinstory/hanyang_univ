@@ -1,34 +1,15 @@
 #include <math.h>
-#include <malloc.h>
-#include <stdlib.h>
 
 #define SWAP(a,b) {float temp=(a);(a)=(b);(b)=temp;}
 
-int* ivector(int s, int e){
-	int* arr;
-	int idx, size=e-s+1;
-
-	arr = (int *)malloc(sizeof(int)*size);
-	for(idx=0;idx<size;idx++){
-		arr[idx]=s+idx;
-	}
-	return arr;
-}
-
-void free_ivector(int* arr){
-	free(arr);
-}
-
-void nrerror(char error_text[]) {
-    printf("[calculating error] %s\n", error_text);
-    //exit(1);
-}
-
-void gaussj(float** a, int n, float** b,int m)
+void gaussj(a,n,b,m)
+float **a,**b;
+int n,m;
 {
 	int *indxc,*indxr,*ipiv;
-	int i,icol,irow,j,k,l,ll;
+	int i,icol,irow,j,k,l,ll,*ivector();
 	float big,dum,pivinv;
+	void nrerror(),free_ivector();
 
 	indxc=ivector(1,n);
 	indxr=ivector(1,n);
@@ -72,9 +53,9 @@ void gaussj(float** a, int n, float** b,int m)
 			for (k=1;k<=n;k++)
 				SWAP(a[k][indxr[l]],a[k][indxc[l]]);
 	}
-	free_ivector(ipiv);
-	free_ivector(indxr);
-	free_ivector(indxc);
+	free_ivector(ipiv,1,n);
+	free_ivector(indxr,1,n);
+	free_ivector(indxc,1,n);
 }
 
 #undef SWAP
