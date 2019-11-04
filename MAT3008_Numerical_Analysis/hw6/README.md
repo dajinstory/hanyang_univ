@@ -82,6 +82,16 @@ func 함수는 uniform_random, gaussian_random 함수 둘중 하나를 가리키
 
 ##### Result
 - imgs
-![result_12](./imgs/result_12.png)
-![result_34](./imgs/result_34.png)
-![result_5](./imgs/result_5.png)
+![result_gaussian_100Samples_50Interval](./imgs/Gaussian_Distribution_100_50.jpg)
+![result_gaussian_100Samples_100Interval](./imgs/Gaussian_Distribution_100_100.jpg)
+![result_gaussian_10000Samples_50Interval](./imgs/Gaussian_Distribution_10000_50.jpg)
+![result_gaussian_10000Samples_100Interval](./imgs/Gaussian_Distribution_10000_100.jpg)
+![result_gaussian_1000000Samples_50Interval](./imgs/Gaussian_Distribution_1000000_50.jpg)
+![result_gaussian_1000000Samples_100Interval](./imgs/Gaussian_Distribution_1000000_100.jpg)
+![result_uniform_100Samples_50Interval](./imgs/Uniform_Distribution_100_50.jpg)
+![result_uniform_100Samples_100Interval](./imgs/Uniform_Distribution_100_100.jpg)
+![result_uniform_10000Samples_50Interval](./imgs/Uniform_Distribution_10000_50.jpg)
+![result_uniform_10000Samples_100Interval](./imgs/Uniform_Distribution_10000_100.jpg)
+![result_uniform_1000000Samples_50Interval](./imgs/Uniform_Distribution_1000000_50.jpg)
+![result_uniform_1000000Samples_100Interval](./imgs/Uniform_Distribution_1000000_100.jpg)
+
