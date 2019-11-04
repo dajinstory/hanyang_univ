@@ -41,8 +41,6 @@ double gaussian_random(double  m, double s, int* idum){
     return n*s + m;
 }
 
-
-
 void make_distribution(distributor generator, int sections, int samples){
     char* name = generator.name;
     funcPtr func = generator.func;
@@ -69,21 +67,20 @@ void make_distribution(distributor generator, int sections, int samples){
         double num;
         do{
             num = func(arg1, arg2, &idum);
-        }while(num<l || num>r);
+        }while(num<l || num>=r);
         int step = (int)((num-l)/interval);
-        if(num-(l+interval*step) > interval/2) step++;
         cnt[step]++;
     }
 
     // save distribution
     char filename[50];
-    sprintf(filename, "%s_%d_%d.csv", name,sections,samples);
+    sprintf(filename, "distributions/%s_%d_%d.csv", name,samples,sections);
     printf("%s\n\n", filename);
     FILE* fp;
     fp=fopen(filename, "w+");
-    fprintf(fp,",x,cnt\n");
-    for(int i=0;i<=sections;i++){
-        fprintf(fp,"%d,%lf,%d\n",i,l+i*interval,cnt[i]);
+    fprintf(fp,"x,cnt\n");
+    for(int i=0;i<sections;i++){
+        fprintf(fp,"%lf,%d\n",l+(i+1/2)*interval,cnt[i]);
     }
     fclose(fp);
 }
