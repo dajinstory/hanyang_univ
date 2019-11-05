@@ -31,6 +31,12 @@ main.c 내부에서 난수가 생성될 때 마다, 어느 section에 속하는�
 그러나, interval계산을 꼼꼼히 하지 못해, uniform random distribution에서 양 끝 section에서의 cnt 수가 다른 section의 cnt값의 반으로 나오는 결과가 발생했습니다. 코드 수정 후 해결했습니다.
 ```
 
+- Third Trial: sections 수 만큼의 행을 갖는 csv 파일을 main.c로 만들고, 그것을 jupyter notebook으로 그래프로 만들기
+```
+main.c로 csv파일을 distributions directory에 만들고, 
+make_graph.ipynb로 csv파일을 읽어와 그래프를 만들고, imgs directory에 이미지 파일로 저장했습니다.
+```
+
 ##### 코드설명
 ```
 typedef double(*funcPtr)(double, double, int*);
