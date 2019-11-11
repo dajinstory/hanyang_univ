@@ -61,6 +61,6 @@ gasdev.c 파일의 내용을 참고하여 작성했습니다. 0과 1 사이의 �
 jacobi function은 symmetric한 행렬에 대해서 유요하기 때문에, symmetric한 행렬을 만들어 적용해보았습니다.
 
 ##### Result
-![result](./imgs/result.jpg)    
+![result](./imgs/result.JPG)    
 
-### + hw6과 hw7에서 random으로 수를 뽑는 과정에서, 초기 시드값을 바꾸지 않았습니다. 시드값을 바꿔서 수를 랜덤을 뽑는 것이 과제의 목표가 아니라고 생각했습니다. stl의 rand 함수를 사용하여 나오는 수를 적절히 조절하여 uniform하거나 gaussian distribution에 적합하도록 수 분포를 재배치하는 것이 과제의 목표라고 생각했습니다.
+### + hw6과 hw7에서 random으로 수를 뽑는 과정에서, 초기 시드값을 바꾸지 않았습니다. 시드값을 바꿔서 수를 랜덤을 뽑는 것이 과제의 목표가 아니라고 생각했습니다. stl의 rand 함수를 사용하여 나오는 수를 적절히 조절하여 uniform하거나 gaussian distribution에 적합하도록 수 분포를 재배치하는 것이 과제의 목표라고 생각했습니다. 감사합니다.
