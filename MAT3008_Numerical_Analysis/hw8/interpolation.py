@@ -24,8 +24,8 @@ from matplotlib import pyplot as plt
 
 src = cv2.imread(filename, cv2.IMREAD_COLOR)
 src = cv2.cvtColor(src, cv2.COLOR_BGR2RGB)
-plt.imshow(src)
-plt.show()
+#plt.imshow(src)
+#plt.show()
 
 
 # In[211]:
@@ -73,7 +73,7 @@ dest = BilinearInterpolation(src, height, width)
 # In[214]:
 
 
-plt.imshow(dest)
+#plt.imshow(dest)
 matplotlib.image.imsave(filename.split('.')[0]+"_resized_"+str(height)+"x"+str(width)+"."+filename.split('.')[1], dest)
 
 

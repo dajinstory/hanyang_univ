@@ -8,7 +8,7 @@
 ```
 jupyter notebook
 or
-python interpolation.ipynb
+python interpolation.py
 ```
 opencv 모듈 설치에 에러가 많이 발생하여 파이썬, 쥬피터노트북을 활용하여 작성했습니다.
 interpolation.ipynb 파일을 실행시켜 결과를 확인할 수 있습니다.
