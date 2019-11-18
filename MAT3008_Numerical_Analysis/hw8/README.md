@@ -1,14 +1,15 @@
 # Numerical Analysis
 
 ## hw8
-- Get the eigenvalue and eigenvector using jacobi function on symmetric matrix
+- Load image file and Resize using bilinearinterpolation method
 
 
 ### Quick Start
 ```
-python interpolation.py
+jupyter notebook
 ```
 opencv 모듈 설치에 에러가 많이 발생하여 파이썬, 쥬피터노트북을 활용하여 작성했습니다.
+Can check result with running interpolation.ipynb 
 
 ### Report
 
@@ -61,6 +62,3 @@ jacobi function은 symmetric한 행렬에 대해서 유요하기 때문에, symm
 ##### Result
 ![result](./example_resized_1000x1000.jpeg)
 ![result](./masking1_resized_1000x1000.jpg)
-
-
-### + hw6과 hw7에서 random으로 수를 뽑는 과정에서, 초기 시드값을 바꾸지 않았습니다. 시드값을 바꿔서 수를 랜덤을 뽑는 것이 과제의 목표가 아니라고 생각했습니다. stl의 rand 함수를 사용하여 나오는 수를 적절히 조절하여 uniform하거나 gaussian distribution에 적합하도록 수 분포를 재배치하는 것이 과제의 목표라고 생각했습니다. 감사합니다.
