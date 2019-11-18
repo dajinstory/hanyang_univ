@@ -18,6 +18,7 @@ jupyter notebook 최상단의 filename, height, width값을 수정하여 코드�
 
 ##### Requirements
 ```
+python=3.7
 opencv-python
 numpy
 math
