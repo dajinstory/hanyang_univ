@@ -8,39 +8,29 @@ int main(){
 	int tc;
 	for(tc=1;tc<=3;tc++){
 		FILE* file;
+		float* x;
+		float* y;
+		float* _x;
+		float* _y;
+		
 		float** A;
-		float* b;
-		int n,m,i,j;		
+		float* b1;
+		float* b2;
+		int i,j;		
 		char* problem;
 		printf("\n\n## Problem number %d\n",tc);
 		
 		// Load matrix data
-		sprintf(problem, "data\\\\lineq%d.dat",tc);
+		sprintf(problem, "data\\\\fitdata%d.dat",tc);
 		file = fopen(problem, "r");
-		load_data(file, &n, &m, &A, &b);
+		load_data(file, &x, &y, &_x, &_y);
 		fclose(file);
-		
-		// Solve with gaussj
-		printf("* Gauss-Jordan Elimination\n");
-		solve_gaussj(n,m,A,b);
-
-		// Solve with LU-Decomposition
-		printf("* LU-Decomposition\n");
-		solve_LU(n,m,A,b);
-
-		// Solve with Singular Value Decomposition
-		printf("* Singular Value Decomposition\n");
-		solve_SVD(n,m,A,b);
-
-		// Solve with mprove
-		printf("* mprove with LU Decomposition\n");
-		solve_mprove(n,m,A,b);
-		
+		make_matrix(&x,&y,&_x,&_y,&A,&b1,&b2);
 		// Get Inverse matrix
-		printf("* Inverse Matrix\n");
-		solve_inverse(n,m,A,b);
+		solve_inverse(A,b1);
+		solve_inverse(A,b2);
 
-		free_data(n,m,A,b);
+		free_data(A,b1,b2,x,y,_x,_y);
 	}
 	return 0;
 }
