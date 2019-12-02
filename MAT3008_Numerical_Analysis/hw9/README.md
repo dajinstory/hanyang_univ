@@ -1,18 +1,22 @@
 # Numerical Analysis
 
-## hw5
-- solve Ax=b
-- Gauss-Jordan Elimination, LU Decomposition, SVD, mprove
+## hw9
+- Data Fitting with least-square  
 
 #### Quick Start
 ```
-cd hw5
+cd hw9
 gcc -o main main.c -lm
 ./main
+
+or
+
+cd hw9
+gcc -o main main.c -lm
+main
 ```
 
-#### Report
-- Compare each methods
-```
-Gauss-Jordan Elimination의 경우 역행렬이 존재하지 않는 경우, 답을 구할 수 없다는 단점이 존재함을 확인했습니다. 근사한 답이거나, 답 관련된 식에 대한 접근이 불가능했습니다. 
-```
+#### Report   
+전체 코드는 노트에 정리한 내용을 수식으로 구현했습니다.   
+구체적인 수식이 이끌어지는 과정은 이미지로 첨부했습니다.   
+![report](./report.jpeg)
