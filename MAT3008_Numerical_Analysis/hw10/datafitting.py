@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[374]:
+# In[447]:
 
 
 import sys
@@ -14,16 +14,45 @@ import matplotlib
 from matplotlib import pyplot as plt
 
 
-# In[375]:
+# In[448]:
 
 
 distThresh=30
 divisor=1.0
 
 
+# ### Gaussian Noise
+
+# In[449]:
+
+
+def add_gaussian_noise(img, SD):
+    gaussian = np.random.normal(0, SD, img.shape) #  np.zeros((224, 224), np.float32)
+
+    noisy_image = np.zeros(img.shape, np.uint8)
+
+    if len(img.shape) == 2:
+        noisy_image = img + gaussian
+    else:
+        noisy_image[:, :, 0] = img[:, :, 0] + gaussian[:,:,0]//1
+        noisy_image[:, :, 1] = img[:, :, 1] + gaussian[:,:,1]//1
+        noisy_image[:, :, 2] = img[:, :, 2] + gaussian[:,:,2]//1
+    
+
+
+    matplotlib.image.imsave("imgs/img.jpg",img)
+    matplotlib.image.imsave("imgs/noisy_image_%d.jpg"%SD,noisy_image)
+
+
+# In[450]:
+
+
+add_gaussian_noise(img1,30)
+
+
 # ## Matched KeyPoint
 
-# In[376]:
+# In[451]:
 
 
 def MatchedKeyPoint(img1, img2):
@@ -56,7 +85,7 @@ def MatchedKeyPoint(img1, img2):
 
 # ## Hessian Function
 
-# In[377]:
+# In[452]:
 
 
 def make_Hessians(a1,b1,c1, a2,b2,c2, p,q, Left,Right):
@@ -69,7 +98,7 @@ def make_Hessians(a1,b1,c1, a2,b2,c2, p,q, Left,Right):
     return H_x, H_y
 
 
-# In[378]:
+# In[453]:
 
 
 def g(a,b,c,x,y):
@@ -122,7 +151,7 @@ def sums(i,j,a,b,c,p,q,Left,Right):
     return re*2/divisor/divisor
 
 
-# In[379]:
+# In[454]:
 
 
 def get_gradients(a1,b1,c1,a2,b2,c2, p,q, Left,Right):
@@ -180,7 +209,7 @@ def get_errors(a1,b1,c1,a2,b2,c2, p,q, Left,Right):
     return error_x, error_y
 
 
-# In[380]:
+# In[455]:
 
 
 img1 = cv2.imread('./data/goodLeft.jpg',0)
@@ -190,7 +219,7 @@ Left, Right = MatchedKeyPoint(img1, img2)
 
 # #### Initial State
 
-# In[381]:
+# In[456]:
 
 
 x_trans=0.0
@@ -221,7 +250,7 @@ print(error_x+error_y)
 
 # #### Epoch
 
-# In[382]:
+# In[457]:
 
 
 epoch=30
@@ -290,7 +319,7 @@ print(a1,b1,c1,a2,b2,c2,p,q)
     
 
 
-# In[383]:
+# In[458]:
 
 
 error_x, error_y = get_errors(a1,b1,c1,a2,b2,c2,p,q,Left,Right)
@@ -301,7 +330,7 @@ print(a1,b1,c1,a2,b2,c2,p,q)
 
 # ### Results
 
-# In[384]:
+# In[459]:
 
 
 # Initiate ORB detector
@@ -317,12 +346,12 @@ bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 matches = bf.match(des1, des2)
 matches = sorted(matches, key=lambda x:x.distance)
 img3 = cv2.drawMatches(img1, kp1, img2, kp2, matches[:30], None, flags=2)
-#plt.figure(figsize=(20,10))
-#plt.imshow(img3)
+plt.figure(figsize=(20,10))
+plt.imshow(img3)
 matplotlib.image.imsave("imgs/result_training_sample.jpg",img3)
 
 
-# In[385]:
+# In[460]:
 
 
 for idx in range(len(matches)):
@@ -330,8 +359,8 @@ for idx in range(len(matches)):
     kp2[matches[idx].trainIdx].pt=(g(a1,b1,c1,x,y)/f(p,q,x,y), g(a2,b2,c2,x,y)/f(p,q,x,y))
     
 img3 = cv2.drawMatches(img1, kp1, img2, kp2, matches[:30], None, flags=2)
-#plt.figure(figsize=(20,10))
-#plt.imshow(img3)
+plt.figure(figsize=(20,10))
+plt.imshow(img3)
 matplotlib.image.imsave("imgs/result_mine.jpg",img3)
 
 
