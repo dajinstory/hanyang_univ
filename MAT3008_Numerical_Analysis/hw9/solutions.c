@@ -8,12 +8,15 @@
 
 #define ABS(X) (X < 0 ? -X : X)
 #define EPSILON 0.000001
+#define MATSIZE 3
 
-void solve_inverse(row,col,A,b)
+void solve_inverse(A,b)
 float** A;
 float* b;
-int row,col;
 {
+    int row, col;
+    row=col=MATSIZE;
+
     // set temporary variables
     int i,j;
     float** mat_A = (float**)malloc(sizeof(float*)*(row+1));
@@ -34,7 +37,16 @@ int row,col;
     gaussj(mat_A, row, mat_B, col);
 
     // inverse
-    check_arr2D(mat_A, row, col);
+    //printf("\ninverse matrix\n");
+    //check_arr2D(mat_A, row, col);
+
+    for(i=1; i<=MATSIZE;i++){
+        float re=0.0;
+        for(j=1;j<=MATSIZE;j++){
+            re+=mat_A[i][j]*b[j];
+        }
+        printf("%f\n",re);
+    }
 
     // free variables
     for(i = 0; i <= row; i++){
