@@ -6,7 +6,6 @@
 # In[1]:
 
 
-import numpy as np
 import json
 import sys
 
@@ -35,7 +34,7 @@ class Apriori:
                 file.write(
                     str(rule['items_1'])+'\t'+
                     str(rule['items_2'])+'\t'+
-                    str('%.2f' % round(rule['support']*100,2)) + '\t' +
+                    str('%.2f' % round(rule['probability_both']*100,2)) + '\t' +
                     str('%.2f' % round(rule['confidence']*100,2)) + '\n'
                 )
 
@@ -94,6 +93,7 @@ class Apriori:
                                 'items_2':set_B['items'],
                                 'support':set_A['nums']/len(transactions),
                                 'confidence':nums/set_A['nums'],
+                                'probability_both':nums/len(transactions),
                                 'lift':(nums*len(transactions))/(set_A['nums']*set_B['nums'])
                             })
                             rules.append({
@@ -101,6 +101,7 @@ class Apriori:
                                 'items_2':set_A['items'],
                                 'support':set_B['nums']/len(transactions),
                                 'confidence':nums/set_B['nums'],
+                                'probability_both':nums/len(transactions),
                                 'lift':(nums*len(transactions))/(set_B['nums']*set_A['nums'])
                             })
             start_point=end_point
