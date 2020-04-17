@@ -6,7 +6,6 @@
 # In[1]:
 
 
-import json
 import sys
 
 # ##### Apriori Class
@@ -116,8 +115,26 @@ if __name__ == '__main__':
     MIN_SUPPORT = int(sys.argv[1])
     input_file = sys.argv[2]
     output_file = sys.argv[3]
-    apriori = Apriori(MIN_SUPPORT)
 
+    # make apriori object
+    print("\n\n# Make apriori object")
+    apriori = Apriori(MIN_SUPPORT)
+    print('apriori object \t\t: ', apriori)
+
+    # load transactions
+    print('\n\n# Load transactions')
     transactions = apriori.load_transactions(input_file)
+    print('num of transactions \t: %d' % len(transactions))
+    for i in range(10):
+        print('transactions[%d] \t: '%i, transactions[i])
+
+    # run apriori algorithm
+    print("\n\n# Run apriori algorithm")
     rules = apriori.run(transactions)
+    print('num of rules \t\t: %d' % len(rules))
+    for i in range(10):
+        print('rules[%d] \t: '%i, rules[i])
+
+    # save the result
+    print('\n\n# Save results')
     apriori.save_rules(rules)
