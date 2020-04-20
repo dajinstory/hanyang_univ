@@ -1,6 +1,6 @@
 import module.nn as nn
 import numpy as np
-np.random.seed(97)
+np.random.seed(135)
 
 # # 3. Train Model
 def create_samples_mul(sample_num):
@@ -58,3 +58,4 @@ if __name__ == '__main__':
     print('\nResult')
     for key in result:
         print(key, ":", result[key])
+    print()

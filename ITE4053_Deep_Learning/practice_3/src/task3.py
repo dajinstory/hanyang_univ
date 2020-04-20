@@ -1,6 +1,6 @@
 import module.nn as nn
 import numpy as np
-np.random.seed(95)
+np.random.seed(135)
 
 # # 3. Train Model
 def create_samples_mul(sample_num):
@@ -58,7 +58,4 @@ if __name__ == '__main__':
     print('\nResult')
     for key in result:
         print(key, ":", result[key])
-
-    for i in range(101,500):
-        result = run_task3(train_samples, test_samples, learning_rate, epochs, print_option='nothing')
-        if result['train_acc']>99.7: print(i, result['train_acc'], result['test_acc'])
+    print()

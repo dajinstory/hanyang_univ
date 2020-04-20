@@ -2,7 +2,7 @@
 import numpy as np
 import time
 
-np.random.seed(97)
+np.random.seed(135)
 
 
 # # 1. Layer
