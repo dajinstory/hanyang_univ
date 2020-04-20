@@ -1,6 +1,6 @@
 import module.nn as nn
 import numpy as np
-np.random.seed(135)
+np.random.seed(227)
 
 # # 3. Train Model
 def create_samples_sum(sample_num):

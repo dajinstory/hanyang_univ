@@ -2,9 +2,6 @@
 import numpy as np
 import time
 
-np.random.seed(135)
-
-
 # # 1. Layer
 class Layer:
     
