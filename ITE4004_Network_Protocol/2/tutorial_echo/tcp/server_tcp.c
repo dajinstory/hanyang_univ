@@ -6,7 +6,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
  
-#define PORT 9999
+#define PORT 9000
  
 int main(void){
     int sock, client_sock;
@@ -39,12 +39,12 @@ int main(void){
  
     addr_len = sizeof(client_addr);
  
-    printf("waiting for clinet..\n");
+    printf("waiting for client..\n");
  
     //while((client_sock = /*연결요청에따라 연결을 수립하고, 
     //연결된 클라이언트와 통신을위한 소켓을 생성한다*/ > 0){
     while((client_sock = accept(sock, (struct sockaddr *)&client_addr, &addr_len)) > 0){
-        printf("clinet ip : %s\n", inet_ntoa(client_addr.sin_addr));
+        printf("client ip : %s\n", inet_ntoa(client_addr.sin_addr));
         
         if((recv_len = recv(client_sock, buffer, 1024, 0)) < 0){
             perror("recv ");
