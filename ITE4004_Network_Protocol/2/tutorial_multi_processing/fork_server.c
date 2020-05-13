@@ -8,7 +8,7 @@
 #include<signal.h>
 #include<sys/wait.h>
 
-#define PORT 8123
+#define PORT 9000
 
 void do_echo(int);
 void sigHandler(int);

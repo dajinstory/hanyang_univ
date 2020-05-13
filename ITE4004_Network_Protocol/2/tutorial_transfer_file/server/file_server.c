@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 	
-	fp=fopen("file_server.c", "rb"); 	
+	fp=fopen("./data/send.dat", "rb"); 	
 	serv_sd=socket(PF_INET, SOCK_STREAM, 0);	
 	
 	memset(&serv_adr, 0, sizeof(serv_adr));
@@ -49,7 +49,8 @@ int main(int argc, char *argv[])
 	}
 
 	
-	shutdown(clnt_sd, SHUT_RDWR);	
+	//shutdown(clnt_sd, SHUT_RDWR);		//	cannot get the additional msg from client
+	shutdown(clnt_sd, SHUT_WR);			//	can get the additional msg froom client
 	read(clnt_sd, buf, BUF_SIZE);	
 	printf("Message from client: %s \n", buf);
 	

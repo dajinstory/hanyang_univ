@@ -6,7 +6,7 @@
 #include<sys/socket.h>
 #include<pthread.h>
 
-#define PORT 8123
+#define PORT 9000
 
 void *do_echo(void*);
 

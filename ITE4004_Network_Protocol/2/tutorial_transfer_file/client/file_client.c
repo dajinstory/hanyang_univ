@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 	
-	fp=fopen("receive.dat", "wb");	
+	fp=fopen("data/receive.dat", "wb");	
 	sd=socket(PF_INET, SOCK_STREAM, 0);   
 	memset(&serv_adr, 0, sizeof(serv_adr));
 	serv_adr.sin_family=AF_INET;
