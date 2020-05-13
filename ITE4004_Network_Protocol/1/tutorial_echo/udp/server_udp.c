@@ -6,7 +6,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
  
-#define PORT 9999
+#define PORT 9000
  
 int main(void){
     int sock;
@@ -16,7 +16,7 @@ int main(void){
     int addr_len;
  
     if((sock = socket(AF_INET, SOCK_DGRAM, 0)) <0){
-        fprintf(stderr,"socket error")
+        fprintf(stderr,"socket error");
         exit(1);
     }
  
@@ -26,7 +26,7 @@ int main(void){
     addr.sin_port = htons(PORT);
  
     if(bind(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0){
-       fprintf(stderr,"bind error")
+       fprintf(stderr,"bind error");
         exit(2);
     }
  
@@ -34,7 +34,7 @@ int main(void){
  
     addr_len = sizeof(client_addr);
     if((recv_len = recvfrom(sock, recv_buffer, 1024, 0, (struct sockaddr *)&client_addr, &addr_len)) < 0){
-        fprintf(stderr,"recvfrom error")
+        fprintf(stderr,"recvfrom error");
         exit(3);
     }
     
