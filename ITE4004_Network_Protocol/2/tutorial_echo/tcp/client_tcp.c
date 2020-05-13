@@ -14,7 +14,7 @@ int main(void){
     char buffer[1024];
     const char *msg = "hello! world!";
     int recv_len;
- 
+
     if((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0){
        fprintf(stderr,"socket() error");
         exit(3);
@@ -24,17 +24,21 @@ int main(void){
     addr.sin_family = AF_INET;
     addr.sin_addr.s_addr = inet_addr("127.0.0.1");
     addr.sin_port = htons(PORT);
- 
-    if(/*연결 요청을 보내어 서버에 연결을 신청한다*/ < 0){
+
+    //if(/*연결 요청을 보내어 서버에 연결을 신청한다*/ < 0)
+    if(connect(sock, (struct sockaddr *)&addr, sizeof(addr))< 0){
         fprintf(stderr,"connect() error");
         exit(3);
     }
  
-    if(/*데이터를 보낸다*/ < 0){
+    //if(/*데이터를 보낸다*/ < 0){
+    if(send(sock, msg, strlen(msg), 0) < 0){
        fprintf(stderr,"send() error");
         exit(3);
     }
-    if((recv_len = /*연결된 소켓으로 데이터를 받아 버퍼에 저장한다*/(sock, buffer, 1024, 0)) < 0){
+
+    //if((recv_len = /*연결된 소켓으로 데이터를 받아 버퍼에 저장한다*/(sock, buffer, 1024, 0)) < 0){
+    if((recv_len = recv(sock, buffer, 1024, 0)) < 0){
        fprintf(stderr,"recv() error");
         exit(3);
     }

@@ -13,7 +13,8 @@ int main(void){
     char buffer[1024];
     int len, addr_len, recv_len;
  
-    if((sock = /*소켓을 생성한다.*/)<0){ //create socket!
+    //if((sock = /*소켓을 생성한다.*/)<0){ //create socket!
+    if((sock = socket(AF_INET, SOCK_STREAM, 0))<0){ //create socket!
         fprintf(stderr,"socket error");
         exit(1);
     }
@@ -24,22 +25,25 @@ int main(void){
     addr.sin_addr.s_addr = htonl(INADDR_ANY);
     addr.sin_port = htons(PORT);
  
-    if(/*소켓 디스크립터와 주소정보를 묶어준다*/ < 0){
+    //if(/*소켓 디스크립터와 주소정보를 묶어준다*/ < 0){
+    if(bind(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0){
         perror("bind ");
         exit(2);
     }
  
-    if(/*클라이언트로부터의 요청을 청취한다*/ < 0){
+    //if(/*클라이언트로부터의 요청을 청취한다*/ < 0){
+    if(listen(sock, 5) < 0){
         perror("listen ");
-      exit(3);
+		exit(3);
     }
  
     addr_len = sizeof(client_addr);
  
     printf("waiting for clinet..\n");
  
-    while((client_sock = /*연결요청에따라 연결을 수립하고, 
-    연결된 클라이언트와 통신을위한 소켓을 생성한다*/ > 0){
+    //while((client_sock = /*연결요청에따라 연결을 수립하고, 
+    //연결된 클라이언트와 통신을위한 소켓을 생성한다*/ > 0){
+    while((client_sock = accept(sock, (struct sockaddr *)&client_addr, &addr_len)) > 0){
         printf("clinet ip : %s\n", inet_ntoa(client_addr.sin_addr));
         
         if((recv_len = recv(client_sock, buffer, 1024, 0)) < 0){
