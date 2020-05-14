@@ -59,25 +59,34 @@ int main()
 
 		//1번 공백
 		// NIC에 존재하는 모든 주소로
-		// 포트 번호 : 36007
-		addr.sin_family = AF_INET;
+		// 포트 번호 : 9000
 		// here
+		addr.sin_family = AF_INET;
+		addr.sin_port = htons(9000);
+		addr.sin_addr.s_addr = INADDR_ANY;
 
 		//2번 공백
 		// 서버 소켓 생성, 조건 : IPv4 TCP
 		// here
+		sock_main = socket(AF_INET, SOCK_STREAM, 0);
 
 		// 3번 공백
 		// 서버 소켓으로 주소 bind
 		// here
+		bind(sock_main, (struct sockaddr *)&addr, sizeof(addr));
 
 		// 4번 공백
 		// 연결 청취 ,queue는 5개
 		// here
+		listen(sock_main, 5);
 
 		while (1) {
 			// 5번 공백 연결 수립
 			// here
+			//1. 이식성 좋음. 전체주소에서의 accpet 허용
+			//accept(sock_main, (struct sockaddr *)&client_addr, sizeof(client_addr));
+			//2. 특정 주소의 클라이언트만을 받으려 할 경우
+			sock_client[count] = accept(sock_main, NULL, NULL);
 
 			// client thread
 			if (count < 10) {
@@ -90,33 +99,41 @@ int main()
 	else {
 
 		//6번 공백 주관식!(1번하고 주소 파츠만 다릅니다)
-		// IP 주소 127.0.0.1 포트 번호 36007
-		addr.sin_family = AF_INET;
+		// IP 주소 127.0.0.1 포트 번호 9000
 		// here
+		addr.sin_family = AF_INET;
+		addr.sin_port = htons(9000);
+		addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+
 
 		// 2번 공백 두번째(답이 똑같아요...)
 		// 소켓 생성, IPv4 TCP
 		// here
+		sock_main = socket(AF_INET, SOCK_STREAM, 0);
 
 		// 7번 공백 연결 요청
 		// here
+		connect(sock_main, (struct sockaddr *)&addr, sizeof(addr));
 
 		// Client Send Thread
 		th_id = pthread_create(&th_send, NULL, sendThreadClient, 0);
 
+		printf("connect complete\n");
 		while (1) {
-
+			int ttmp=1;
+			printf("while %d\n", ttmp);
 			//8번 공백 
 			//recv받은 값의 크기가 0보다 크다면 출력
 			memset(&buff, 0, sizeof(buff));
 
-			if (/*here*/) > 0) {
+			// here
+			if (ttmp = recv(sock_main, (char *)&buff, sizeof(buff), 0) > 0) {
 				printf("User %d: %s\n", buff.user_id, buff.str);
 			}
 			else {
 				printf("Disconnected\n");
 				exit(5);
-			
+			}	
 		}
 	}
 
@@ -132,16 +149,15 @@ void *sendThread() {
 	while (1) {
 		//9번공백
 		//dequeue 함수의 실행 결과가 NULL(Queue Empty)가 아니라면 전송
-			if ((tmp = dequeue()) != NULL) {
+		if ((tmp = dequeue()) != NULL) {
 			for (int i = 0; i < 10; i++) {
 				if (i != tmp->user_id) {
 					// here
+					send(sock_client[i], (char *)tmp, sizeof(Message), 0);
+					printf("send to client!\n");
 				}
 			}
 		}
-
-		
-
 		usleep(1000);
 	}
 }
@@ -154,10 +170,15 @@ void *recvThread(void *data) {
 
 	//10번 공백
 	// 클라이언트로부터 수신한 결과가 0보다 크면 enqueue
-	while (/*here*/) {
+	// here
+	while (recv(sock_client[thread_id], (char *)&buff, sizeof(buff), 0) > 0 ) {
 		buff.user_id = thread_id;
+		printf("received!\n");;
 		if (enqueue(buff) == -1) {
 			printf("Messag Buffer Full\n");
+		}
+	}
+	printf("done!");
 }
 
 void *sendThreadClient() {
@@ -172,6 +193,7 @@ void *sendThreadClient() {
 		tmp.user_id = -1;
 
 		count = send(sock_main, (char *)&tmp, sizeof(Message), 0);
+		printf("send to Server!\n");
 	}
 }
 
