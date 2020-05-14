@@ -85,7 +85,7 @@ int main() {
 				char *tmp2 = strtok(command, " ");
 				tmp2 = strtok(NULL, " ");
 				FileDownMode = 1;
-
+				
 				if (transferMode == 0)
 					fp = fopen(tmp2, "wt");
 				else fp = fopen(tmp2, "wb");

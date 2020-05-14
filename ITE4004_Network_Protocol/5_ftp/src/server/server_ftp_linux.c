@@ -12,7 +12,7 @@
 #include <dirent.h>
 
 int listen_sock, clnt_sock[10], data_sock[10];
-int control_port = 36007;
+int control_port = 9000;
 int data_port;
 char *username = "np2019";
 char *password = "np2019";
