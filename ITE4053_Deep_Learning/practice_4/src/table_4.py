@@ -19,7 +19,7 @@ def create_samples(sample_num):
 
 
 
-def func(optimizer, loss, acc_name, batch_size):
+def func(optimizer, loss, acc_name, batch_size, run_nums = 10):
     train_samples = 1000
     test_samples = 100
     
@@ -31,10 +31,8 @@ def func(optimizer, loss, acc_name, batch_size):
     test_loss = 0
     test_acc = 0
 
-    run_nums = 10
-
     for _ in range(run_nums):
-    
+        print(_)
         # create dataset
         train_X, train_y = create_samples(train_samples)
         test_X, test_y = create_samples(test_samples)    ## train model
@@ -56,7 +54,7 @@ def func(optimizer, loss, acc_name, batch_size):
             train_X, train_y, 
             batch_size = batch_size, 
             epochs = 1000,
-            verbose = False
+            #verbose = False
         )
 
         train_time += time.time()-time_start
@@ -66,7 +64,7 @@ def func(optimizer, loss, acc_name, batch_size):
         # test model
         time_start = time.time()
         result = model.evaluate(test_X, test_y, 
-                       verbose=False
+                       #verbose=False
         )
 
         test_time += time.time()-time_start
@@ -97,25 +95,26 @@ def func(optimizer, loss, acc_name, batch_size):
 
     
 if __name__ == '__main__':
-    func(optimizer = tf.keras.optimizers.SGD(lr=1.0), 
-         loss = 'binary_crossentropy', 
-         acc_name = 'binary_accuracy', 
-         batch_size = 1000)
+    # func(optimizer = tf.keras.optimizers.SGD(lr=1.0), 
+    #      loss = 'binary_crossentropy', 
+    #      acc_name = 'binary_accuracy', 
+    #      batch_size = 1000)
+    
+    # func(optimizer = tf.keras.optimizers.SGD(lr=1.0), 
+    #      loss = 'binary_crossentropy', 
+    #      acc_name = 'binary_accuracy', 
+    #      batch_size = 128)
+    
+    # func(optimizer = tf.keras.optimizers.SGD(lr=1.0), 
+    #      loss = 'binary_crossentropy', 
+    #      acc_name = 'binary_accuracy', 
+    #      batch_size = 32)
     
     func(optimizer = tf.keras.optimizers.SGD(lr=1.0), 
          loss = 'binary_crossentropy', 
          acc_name = 'binary_accuracy', 
-         batch_size = 128)
-    
-    func(optimizer = tf.keras.optimizers.SGD(lr=1.0), 
-         loss = 'binary_crossentropy', 
-         acc_name = 'binary_accuracy', 
-         batch_size = 32)
-    
-    func(optimizer = tf.keras.optimizers.SGD(lr=1.0), 
-         loss = 'binary_crossentropy', 
-         acc_name = 'binary_accuracy', 
-         batch_size = 1)
+         batch_size = 1,
+         run_nums = 1)
 
     
     
