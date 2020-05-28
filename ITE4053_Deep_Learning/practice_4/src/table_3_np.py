@@ -59,18 +59,22 @@ def run_task3(train_samples, test_samples, learning_rate, epochs, print_option='
             'time_gen_data' : spot_1-spot_0,
             'time_gen_network' : spot_2-spot_1,
             'time_train' : spot_3-spot_2,
-            'time_predict' : spot_4-spot_3,
-            }
+            'time_predict' : spot_4-spot_3
+    }, np.array([train_acc, test_acc, spot_3-spot_2, spot_4-spot_3])
 
 
 if __name__ == '__main__':
     train_samples = 1000 # m
     test_samples = 100 # n
-    learning_rate = 2.0
+    learning_rate = 1.0
     epochs = 1000 # K
-    result = run_task3(train_samples, test_samples, learning_rate, epochs)
+    num_runs = 10
+    
+    result_mean = np.zeros(4)
+    for _ in range(num_runs):
+        _, result = run_task3(train_samples, test_samples, learning_rate, epochs)
+        result_mean += result
 
-    print('\nResult')
-    for key in result:
-        print(key, ":", result[key])
-    print()
+    result_mean /= num_runs
+
+    print(result_mean)
