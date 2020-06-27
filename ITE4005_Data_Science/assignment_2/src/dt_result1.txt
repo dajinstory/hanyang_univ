@@ -81,7 +81,7 @@
 79	vhigh	high	5more	more	small	high	unacc
 80	vhigh	low	5more	2	med	low	unacc
 81	low	low	2	2	med	med	unacc
-82	high	low	3	4	med	med	unacc
+82	high	low	3	4	med	med	acc
 83	low	low	4	4	big	high	vgood
 84	high	vhigh	2	more	med	low	unacc
 85	high	high	4	more	big	high	acc
@@ -140,7 +140,7 @@
 138	vhigh	med	2	2	med	low	unacc
 139	low	low	5more	4	small	low	unacc
 140	vhigh	vhigh	3	4	big	high	unacc
-141	high	med	3	4	med	med	unacc
+141	high	med	3	4	med	med	acc
 142	low	low	5more	2	med	high	unacc
 143	vhigh	vhigh	3	more	med	low	unacc
 144	med	med	5more	2	small	low	unacc
@@ -245,7 +245,7 @@
 243	high	low	3	4	big	med	acc
 244	low	med	3	4	med	high	acc
 245	high	low	5more	more	big	med	acc
-246	low	med	3	more	med	med	good
+246	low	med	3	more	med	med	acc
 247	med	med	4	4	big	high	vgood
 248	vhigh	high	3	4	med	low	unacc
 249	med	vhigh	5more	more	big	low	unacc
@@ -342,6 +342,6 @@
 340	high	high	4	4	med	high	acc
 341	vhigh	low	4	4	small	high	acc
 342	vhigh	low	3	4	big	low	unacc
-343	high	high	3	4	big	med	acc
+343	high	high	3	4	big	med	unacc
 344	med	low	5more	4	big	med	good
 345	vhigh	high	5more	more	med	med	unacc
